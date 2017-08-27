@@ -14,35 +14,35 @@ f = Food()
 food_eaten = False
 f.generate(s.position)
 
+GAME_OVER = False
 UP_DIR = False
 DOWN_DIR = True
 RIGHT_DIR = False
 LEFT_DIR = False
 
-while not done:
+while not done and not GAME_OVER:
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         done = True
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                        is_blue = not is_blue
+
 
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_UP]:
+        if pressed[pygame.K_UP] and not DOWN_DIR:
             UP_DIR = True
             DOWN_DIR = False
             RIGHT_DIR = False
             LEFT_DIR = False
-        if pressed[pygame.K_DOWN]:
+        if pressed[pygame.K_DOWN] and not UP_DIR:
             UP_DIR = False
             DOWN_DIR = True
             RIGHT_DIR = False
             LEFT_DIR = False
-        if pressed[pygame.K_LEFT]:
+        if pressed[pygame.K_LEFT] and not RIGHT_DIR:
             UP_DIR = False
             DOWN_DIR = False
             RIGHT_DIR = False
             LEFT_DIR = True
-        if pressed[pygame.K_RIGHT]:
+        if pressed[pygame.K_RIGHT] and not LEFT_DIR:
             UP_DIR = False
             DOWN_DIR = False
             RIGHT_DIR = True
@@ -65,6 +65,12 @@ while not done:
 
         if s.position[0] == f.position():
             food_eaten = True
+
+        for i in range(1,len(s.position)):
+            if s.position[0] == s.position[i]:
+                GAME_OVER = True
+                print 'Game Over !!'
+                break
 
         if food_eaten:
             s.eat(f.position()[0], f.position()[1])

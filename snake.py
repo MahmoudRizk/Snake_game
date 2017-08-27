@@ -1,7 +1,7 @@
 import pygame
 
 class Snake:
-    def __init__(self, initial_position=(0,0), snake_size = 5, map_dimensions=()):
+    def __init__(self, initial_position=(0,0), snake_size = 1, map_dimensions=()):
         self.initial_position = initial_position
         self.map_dimensions = map_dimensions
 
@@ -24,7 +24,8 @@ class Snake:
                             (self.position[0][1] + y) % self.map_dimensions[1])
 
     def eat(self, x, y):
-        self.position = [(x,y)] + self.position
+        for i in range(0,5):
+            self.position = [(x,y)] + self.position
 
     def draw(self, screen, color):
         for i in self.position:

@@ -4,6 +4,10 @@ from food import Food
 
 pygame.init()
 screen = pygame.display.set_mode((400, 300))
+
+myfont = pygame.font.SysFont('Comic Sans MS', 20)
+textsurface = myfont.render('0', False, (255, 255, 255))
+
 done = False
 color = (0, 128, 255)
 
@@ -62,6 +66,8 @@ while not done and not GAME_OVER:
             s.update_head(x=10)
 
         screen.fill((0,0,0))
+        textsurface = myfont.render(str(len(s.position)-2) , False, (255, 255, 255))
+        screen.blit(textsurface,(0,0))
 
         if s.position[0] == f.position():
             food_eaten = True
@@ -84,4 +90,4 @@ while not done and not GAME_OVER:
         #print 'Food: ', f.position() ## Debug
 
         pygame.display.flip()
-        clock.tick(20)
+        clock.tick(15)
